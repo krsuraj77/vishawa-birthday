@@ -1,0 +1,187 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f0f0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    cursor: pointer;
+}
+
+.envelope {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #ff69b4;
+    border-radius: 20px;
+    transition: transform 0.5s;
+}
+
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 0;
+    border-top: 200px solid #ff1493;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    transform-origin: top;
+    transition: transform 0.5s;
+}
+
+.letter {
+    position: absolute;
+    background: white;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    border-radius: 15px;
+    transition: all 0.5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateY(100px) rotateX(0deg);
+    opacity: 0;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    backface-visibility: hidden;
+}
+
+.card:hover .letter {
+    transform: translateY(-20px) rotateX(10deg);
+    opacity: 1;
+    box-shadow: 0 25px 35px rgba(0,0,0,0.3);
+}
+
+.text {
+    text-align: center;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    padding: 10px;
+}
+
+h1 {
+    color: #ff1493;
+    text-shadow: 
+        2px 2px 0 #ff69b4,
+        4px 4px 0 rgba(0,0,0,0.2);
+    font-size: 2.5em;
+    transform: translateZ(50px);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+p {
+    color: #333;
+    font-size: 1.1em;
+    margin: 15px 0;
+    transform: translateZ(30px);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    line-height: 1.5;
+}
+
+.signature {
+    margin-top: 30px;
+    font-style: italic;
+    color: #ff1493;
+    font-size: 1.2em;
+    transform: translateZ(40px);
+    text-shadow: 
+        1px 1px 0 #ff69b4,
+        2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.card:hover .text > * {
+    animation: textFloat 3s infinite ease-in-out;
+}
+
+@keyframes textFloat {
+    0% { transform: translateZ(30px) translateY(0); }
+    50% { transform: translateZ(50px) translateY(-5px); }
+    100% { transform: translateZ(30px) translateY(0); }
+}
+
+.text > *:nth-child(1) { animation-delay: 0.1s; }
+.text > *:nth-child(2) { animation-delay: 0.2s; }
+.text > *:nth-child(3) { animation-delay: 0.3s; }
+.text > *:nth-child(4) { animation-delay: 0.4s; }
+.birthday-image {
+    transform: translateZ(40px);
+    transition: transform 0.5s ease;
+}
+
+.card:hover .birthday-image {
+    transform: translateZ(60px) scale(1.05);
+}
+
+.card:hover .envelope {
+    transform: translateY(50px);
+}
+
+.photo-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.birthday-image {
+    max-width: 120px;
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 5px;
+    display: block;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 2px solid #ff69b4;
+    filter: brightness(1);
+    transform: scale(1) rotate(0deg);
+}
+
+.birthday-image:hover {
+    transform: scale(1.15) rotate(3deg);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+    filter: brightness(1.1);
+    border-color: #ff1493;
+    z-index: 2;
+}
+
+@keyframes photoFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+.card:hover .birthday-image {
+    animation: photoFloat 3s infinite ease-in-out;
+    animation-delay: calc(var(--photo-index) * 0.2s);
+}
+
+.birthday-image:nth-child(1) { --photo-index: 1; }
+.birthday-image:nth-child(2) { --photo-index: 2; }
+.birthday-image:nth-child(3) { --photo-index: 3; }
+/* Add a frame animation when the card is opened */
+.card:hover .birthday-image {
+    animation: frameGlow 2s infinite alternate;
+}
+
+@keyframes frameGlow {
+    from {
+        box-shadow: 0 0 10px #ff69b4;
+    }
+    to {
+        box-shadow: 0 0 25px #ff1493;
+    }
+}
